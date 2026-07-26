@@ -76,10 +76,7 @@ const cashTotal = document.querySelector("#cashTotal");
 const status = document.querySelector("#status");
 
 function money(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
-  }).format(value);
+  return `$${Number(value).toFixed(2)}`;
 }
 
 function escapeHtml(value) {
@@ -198,7 +195,10 @@ function buildCopyText() {
     const rawQty = Math.ceil(preparedQty / data.prepYield);
     const lineCost = rawQty * data.rawCost;
     totalCash += lineCost;
-    lines.push(`${rawQty}x ${data.rawName} — ${money(lineCost)}`);
+    const yieldNote = data.prepYield > 1
+      ? ` (${preparedQty} prepared needed; ${data.prepYield} per raw)`
+      : "";
+    lines.push(`${rawQty}x ${data.rawName} @ ${money(data.rawCost)} — ${money(lineCost)}${yieldNote}`);
   }
 
   lines.push("------------------------------", `CASH TO BRING: ${money(totalCash)}`);
