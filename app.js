@@ -5,18 +5,19 @@
 // ============================================================
 
 const INGREDIENTS = {
-  "Meat":        { rawName: "Meat",        rawCost: 7.00, prepYield: 5 },
-  "Onion":       { rawName: "Onion",       rawCost: 3.00, prepYield: 5 },
-  "Carrot":      { rawName: "Carrot",      rawCost: 5.00, prepYield: 5 },
-  "Lettuce":     { rawName: "Lettuce",     rawCost: 3.00, prepYield: 5 },
-  "Tomato":      { rawName: "Tomato",      rawCost: 4.00, prepYield: 5 },
-  "Wheat":       { rawName: "Wheat",       rawCost: 1.00, prepYield: 5 },
-  "Lemon":       { rawName: "Lemon",       rawCost: 1.00, prepYield: 5 },
-  "Corn":        { rawName: "Corn",        rawCost: 3.00, prepYield: 1 },
-  "Ice Cube":    { rawName: "Ice Cube",    rawCost: 2.00, prepYield: 1 },
-  "Tequila":     { rawName: "Tequila",     rawCost: 9.00, prepYield: 1 },
-  "Lime Juice":  { rawName: "Lime Juice",  rawCost: 4.00, prepYield: 1 },
-  "Tonic Water": { rawName: "Tonic Water", rawCost: 3.00, prepYield: 1 }
+  "Meat":         { rawName: "Meat",         rawCost: 7.00,  prepYield: 5 },
+  "Onion":        { rawName: "Onion",        rawCost: 3.00,  prepYield: 5 },
+  "Carrot":       { rawName: "Carrot",       rawCost: 5.00,  prepYield: 5 },
+  "Lettuce":      { rawName: "Lettuce",      rawCost: 3.00,  prepYield: 5 },
+  "Tomato":       { rawName: "Tomato",       rawCost: 4.00,  prepYield: 5 },
+  "Wheat":        { rawName: "Wheat",        rawCost: 1.00,  prepYield: 5 },
+  "Lemon":        { rawName: "Lemon",        rawCost: 1.00,  prepYield: 5 },
+  "Corn":         { rawName: "Corn",         rawCost: 3.00,  prepYield: 1 },
+  "Ice Cube":     { rawName: "Ice Cube",     rawCost: 2.00,  prepYield: 1 },
+  "Coffee Beans": { rawName: "Coffee Beans", rawCost: 10.00, prepYield: 1 },
+  "Tequila":      { rawName: "Tequila",      rawCost: 9.00,  prepYield: 1 },
+  "Lime Juice":   { rawName: "Lime Juice",   rawCost: 4.00,  prepYield: 1 },
+  "Tonic Water":  { rawName: "Tonic Water",  rawCost: 3.00,  prepYield: 1 }
 };
 
 const RECIPES = [
@@ -64,6 +65,32 @@ const RECIPES = [
     id: "ranch-water",
     name: "Ranch Water",
     ingredients: { "Tequila": 1, "Lime Juice": 1, "Tonic Water": 1, "Ice Cube": 1 }
+  },
+
+  {
+    id: "cottontail-stew",
+    name: "Creed's Cottontail Stew",
+    ingredients: { "Meat": 3, "Onion": 2, "Carrot": 1 }
+  },
+  {
+    id: "brisket-stack",
+    name: "Smokehouse Brisket Stack",
+    ingredients: { "Meat": 3, "Onion": 2, "Wheat": 1 }
+  },
+  {
+    id: "sun-brewed-tea",
+    name: "Smokehouse Sun-Brewed Sweet Tea",
+    ingredients: { "Coffee Beans": 1, "Lemon": 1, "Ice Cube": 1 }
+  },
+  {
+    id: "buckshot-burger",
+    name: "Bucky's Buckshot Burger",
+    ingredients: { "Onion": 3, "Meat": 2, "Wheat": 1 }
+  },
+  {
+    id: "buck-country-chili",
+    name: "Buck Country Chili",
+    ingredients: { "Onion": 3, "Meat": 2, "Tomato": 1 }
   }
 ];
 
