@@ -162,26 +162,134 @@ function recipeSummary(recipe) {
     .join(", ");
 }
 
+function injectQuantityControlStyles() {
+  if (document.querySelector("#smokehouseQtyControlStyles")) return;
+
+  const style = document.createElement("style");
+  style.id = "smokehouseQtyControlStyles";
+  style.textContent = `
+    .recipe-row {
+      gap: 14px;
+    }
+
+    .recipe-qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .recipe-qty-button {
+      width: 31px;
+      height: 31px;
+      padding: 0;
+      border: 0;
+      border-radius: 7px;
+      background: #673a27;
+      color: #ffffff;
+      font: 700 20px/31px Arial, sans-serif;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: none;
+    }
+
+    .recipe-qty-button:hover {
+      filter: brightness(1.08);
+    }
+
+    .recipe-qty-button:active {
+      transform: translateY(1px);
+    }
+
+    .recipe-qty-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .recipe-qty-controls .qty-input {
+      width: 46px;
+      height: 31px;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0 4px;
+      border: 1px solid #c9a985;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #111111;
+      font: 700 15px/31px Arial, sans-serif;
+      text-align: center;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    .recipe-qty-controls .qty-input::-webkit-outer-spin-button,
+    .recipe-qty-controls .qty-input::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+
+    .recipe-qty-controls .qty-input:focus {
+      outline: 2px solid rgba(103, 58, 39, 0.22);
+      outline-offset: 1px;
+      border-color: #673a27;
+    }
+
+    @media (max-width: 520px) {
+      .recipe-row {
+        align-items: center;
+      }
+
+      .recipe-qty-controls {
+        gap: 4px;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
 function renderRecipes() {
+  injectQuantityControlStyles();
+
   recipeGrid.innerHTML = RECIPES.map(recipe => {
     const disabled = !recipe.ingredients;
     return `
-      <label class="recipe-row${disabled ? " recipe-unavailable" : ""}">
+      <div class="recipe-row${disabled ? " recipe-unavailable" : ""}">
         <div>
           <h3>${escapeHtml(recipe.name)}</h3>
           <small>${escapeHtml(recipeSummary(recipe))}</small>
         </div>
-        <input
-          class="qty-input"
-          type="number"
-          min="0"
-          step="1"
-          inputmode="numeric"
-          value="0"
-          data-recipe-id="${recipe.id}"
-          aria-label="${escapeHtml(recipe.name)} craft quantity"
-          ${disabled ? "disabled" : ""}>
-      </label>
+
+        <div class="recipe-qty-controls" aria-label="${escapeHtml(recipe.name)} quantity controls">
+          <button
+            class="recipe-qty-button qty-minus"
+            type="button"
+            data-recipe-id="${recipe.id}"
+            aria-label="Decrease ${escapeHtml(recipe.name)} quantity"
+            ${disabled ? "disabled" : ""}>−</button>
+
+          <input
+            class="qty-input"
+            type="number"
+            min="0"
+            step="1"
+            inputmode="numeric"
+            value="0"
+            data-recipe-id="${recipe.id}"
+            aria-label="${escapeHtml(recipe.name)} craft quantity"
+            ${disabled ? "disabled" : ""}>
+
+          <button
+            class="recipe-qty-button qty-plus"
+            type="button"
+            data-recipe-id="${recipe.id}"
+            aria-label="Increase ${escapeHtml(recipe.name)} quantity"
+            ${disabled ? "disabled" : ""}>+</button>
+        </div>
+      </div>
     `;
   }).join("");
 }
@@ -324,6 +432,24 @@ recipeGrid.addEventListener("input", event => {
   const safeQty = Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
   quantities[input.dataset.recipeId] = safeQty;
   input.value = safeQty;
+  calculate();
+});
+
+recipeGrid.addEventListener("click", event => {
+  const button = event.target.closest(".recipe-qty-button");
+  if (!button || button.disabled) return;
+
+  const recipeId = button.dataset.recipeId;
+  const input = recipeGrid.querySelector(`.qty-input[data-recipe-id="${recipeId}"]`);
+  if (!input) return;
+
+  const current = quantities[recipeId] || 0;
+  const next = button.classList.contains("qty-plus")
+    ? current + 1
+    : Math.max(0, current - 1);
+
+  quantities[recipeId] = next;
+  input.value = next;
   calculate();
 });
 
