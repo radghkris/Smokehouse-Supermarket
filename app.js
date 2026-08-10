@@ -169,15 +169,31 @@ function injectQuantityControlStyles() {
   style.id = "smokehouseQtyControlStyles";
   style.textContent = `
     .recipe-row {
-      gap: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding-right: 10px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .recipe-row > div:first-child {
+      min-width: 0;
     }
 
     .recipe-qty-controls {
-      display: flex;
+      display: inline-grid;
+      grid-template-columns: 31px 46px 31px;
       align-items: center;
+      justify-content: end;
       gap: 5px;
-      flex-shrink: 0;
-      margin-left: auto;
+      width: 118px;
+      min-width: 118px;
+      max-width: 118px;
+      margin-left: 0;
+      justify-self: end;
+      box-sizing: border-box;
     }
 
     .recipe-qty-button {
@@ -239,11 +255,29 @@ function injectQuantityControlStyles() {
 
     @media (max-width: 520px) {
       .recipe-row {
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        padding-right: 8px;
       }
 
       .recipe-qty-controls {
+        grid-template-columns: 29px 42px 29px;
+        width: 108px;
+        min-width: 108px;
+        max-width: 108px;
         gap: 4px;
+      }
+
+      .recipe-qty-button {
+        width: 29px;
+        height: 29px;
+        line-height: 29px;
+      }
+
+      .recipe-qty-controls .qty-input {
+        width: 42px;
+        height: 29px;
+        line-height: 29px;
       }
     }
   `;
