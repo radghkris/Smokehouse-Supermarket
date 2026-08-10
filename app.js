@@ -11,20 +11,20 @@ const INGREDIENTS = {
   "Carrot": { rawName: "Carrot", rawCost: 5.00, prepYield: 5 },
   "Lettuce": { rawName: "Lettuce", rawCost: 3.00, prepYield: 5 },
   "Tomato": { rawName: "Tomato", rawCost: 4.00, prepYield: 5 },
-  "Wheat": { rawName: "Wheat", rawCost: 1.00, prepYield: 5 },
-  "Flour": { rawName: "Wheat", rawCost: 1.00, prepYield: 5 },
+  "Wheat": { rawName: "Wheat", rawCost: 2.00, prepYield: 5 },
+  "Flour": { rawName: "Wheat", rawCost: 2.00, prepYield: 5 },
   "Cutted Potato": { rawName: "Potato", rawCost: 3.00, prepYield: 5 },
-  "Apple": { rawName: "Apple", rawCost: 3.00, prepYield: 5 },
+  "Apple": { rawName: "Apple", rawCost: 2.00, prepYield: 5 },
   "Peach": { rawName: "Peach", rawCost: 6.00, prepYield: 5 },
-  "Banana": { rawName: "Banana", rawCost: 3.00, prepYield: 5 },
+  "Banana": { rawName: "Banana", rawCost: 2.00, prepYield: 5 },
   "Lemon": { rawName: "Lemon", rawCost: 1.00, prepYield: 5 },
   "Corn": { rawName: "Corn", rawCost: 3.00, prepYield: 1 },
   "Ice Cube": { rawName: "Ice Cube", rawCost: 2.00, prepYield: 1 },
   "Coffee Beans": { rawName: "Coffee Beans", rawCost: 10.00, prepYield: 1 },
   "Tequila": { rawName: "Tequila", rawCost: 9.00, prepYield: 1 },
-  "Whiskey": { rawName: "Whiskey", rawCost: null, prepYield: 1 },
+  "Whiskey": { rawName: "Whiskey", rawCost: 9.00, prepYield: 1 },
   "Lime Juice": { rawName: "Lime Juice", rawCost: 4.00, prepYield: 1 },
-  "Tonic Water": { rawName: "Tonic Water", rawCost: 3.00, prepYield: 1 }
+  "Tonic Water": { rawName: "Tonic Water", rawCost: 2.00, prepYield: 1 }
 };
 
 const RECIPES = [
@@ -106,8 +106,7 @@ const RECIPES = [
   {
     id: "country-cornbread",
     name: "Country Cornbread",
-    ingredients: null,
-    note: "Recipe quantities needed before production planning can be enabled."
+    ingredients: { "Corn": 1, "Flour": 1, "Onion": 2 }
   },
   {
     id: "drunkin-apple-pie",
